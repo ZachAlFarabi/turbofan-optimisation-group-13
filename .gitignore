@@ -3,6 +3,7 @@
 *.m~
 *.mex*
 *.mat
+*.db
 
 # Generated databases
 atmosphere_rw.db
