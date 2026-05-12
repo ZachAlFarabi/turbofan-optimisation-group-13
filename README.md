@@ -13,8 +13,7 @@ project/
 ├── real_engine.m
 ├── turbofan_objectives.m
 ├── real_turbofan_objectives.m 
-├── atmosphere.m 
-└── atmosphere.db
+└── atmosphere.m
 ```
 
 ---
@@ -44,11 +43,11 @@ pipeline
 
 ## Performance Variables
 
-- Specific thrust F/ṁ₀
+- Specific thrust F/m0dot
 - Thrust specific fuel consumption S (TSFC)
-- Thermal efficiency ηT
-- Propulsive efficiency ηP
-- Overall efficiency ηO
+- Thermal efficiency eta_T
+- Propulsive efficiency eta_P
+- Overall efficiency eta_O
 
 ---
 
