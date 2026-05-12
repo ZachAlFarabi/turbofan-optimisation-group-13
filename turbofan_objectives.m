@@ -33,18 +33,15 @@ function obj = turbofan_objectives(x, gamma, cp)
     V9_a0 = sqrt(V9_a0_sq);
     V19_a0 = sqrt(V19_a0_sq);
 
-    % Velocity ratios
-    V9_V0  = V9_a0 / M0;
-    V19_V0 = V19_a0 / M0;
-
     % Specific thrust, fuel-air ratio and TSFC
-    F_m0 = (a0/(1+alpha)) * (V9_a0 - M0 + alpha*(V19_a0 - M0));
     f = (cp*T0/hPR) * (tau_lambda - tau_r*tau_c);
+    F_m0 = (a0/(1+alpha)) * (V9_a0 - M0 + alpha*(V19_a0 - M0));
     S = f / ((1+alpha) * F_m0);
 
     % Thermal, propulsive and overall efficiency
-    eta_T = 1 - 1/(tau_r*tau_c);
-    eta_P = (2*M0 * ((1+f)*V9_a0 + alpha*V19_a0 - (1+alpha)*M0)) / ((1+f)*V9_a0^2 + alpha*V19_a0^2 - (1+alpha)*M0^2);
+    eta_T = (a0^2 * ((1+f)*V9_a0^2 + alpha*V19_a0^2 - (1+alpha)*M0^2)) / (2*f*hPR);
+    eta_P = (2*M0 * ((1+f)*V9_a0 + alpha*V19_a0 - (1+alpha)*M0)) / ...
+        ((1+f)*V9_a0^2 + alpha*V19_a0^2 - (1+alpha)*M0^2);
     eta_O = eta_T * eta_P;
 
     if ~isfinite(F_m0) || F_m0 <= 0 || ~isfinite(S) || S <= 0
