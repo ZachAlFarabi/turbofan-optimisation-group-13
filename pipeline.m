@@ -1,3 +1,7 @@
+%% Aerospace Propulsion 2026 
+% Group 13
+% Zach Al-Farabi - a1851552
+
 clear; clc;
 
 % Constants
@@ -93,10 +97,13 @@ for p = 1:7
     plot(sweep, real_eng.sweep(p).TSFC, 'r--', 'LineWidth', 1.5);
     ylabel('$S$ [kg/N/s]', 'Interpreter', 'latex', 'FontSize', 12);
     xlabel(param_labels{p}, 'Interpreter', 'latex', 'FontSize', 12);
-    title(['$F/\dot{m}_0$ and TSFC vs ' param_labels{p}], 'Interpreter', 'latex', 'FontSize', 12);
+    title(['a1851552 - $F/\dot{m}_0$ and TSFC vs ' param_labels{p}], 'Interpreter', 'latex', 'FontSize', 12);
     legend('Ideal $F/\dot{m}_0$', 'Real $F/\dot{m}_0$', 'Ideal TSFC', 'Real TSFC', ...
            'Interpreter', 'latex', 'Location', 'eastoutside');
     set(gca, 'TickLabelInterpreter', 'latex'); grid on;
+    ax=gca;
+    ax.YAxis(1).Color='k'; % Left Y axis
+    ax.YAxis(2).Color='k'; % Right Y axis
 
     % Bottom subplot: efficiencies
     subplot(2,1,2);
@@ -108,9 +115,9 @@ for p = 1:7
     plot(sweep, real_eng.sweep(p).eta_O, 'g--', 'LineWidth', 1.5);
     ylabel('Efficiency', 'Interpreter', 'latex', 'FontSize', 12);
     xlabel(param_labels{p}, 'Interpreter', 'latex', 'FontSize', 12);
-    title(['Efficiencies vs ' param_labels{p}], 'Interpreter', 'latex', 'FontSize', 12);
+    title(['a1851552 - Efficiencies vs ' param_labels{p}], 'Interpreter', 'latex', 'FontSize', 12);
     legend('Ideal $\eta_T$', 'Real $\eta_T$', 'Ideal $\eta_P$', 'Real $\eta_P$', ...
-           'Ideal $\eta_O$', 'Real $\eta_O$', 'Interpreter', 'latex', 'Location', 'best');
+           'Ideal $\eta_O$', 'Real $\eta_O$', 'Interpreter', 'latex', 'Location', 'eastoutside');
     set(gca, 'TickLabelInterpreter', 'latex'); grid on;
 end
 
@@ -130,11 +137,14 @@ for p = 1:2
     plot(sweep, real_eng.opt_sweep(p).TSFC, 'r--', 'LineWidth', 1.5);
     ylabel('$S$ [kg/N/s]', 'Interpreter', 'latex', 'FontSize', 12);
     xlabel(opt_labels{p}, 'Interpreter', 'latex', 'FontSize', 12);
-    title(['Optimal Config: $F/\dot{m}_0$ and TSFC vs ' opt_labels{p}], ...
+    title(['a1851552 - Optimal Config: $F/\dot{m}_0$ and TSFC vs ' opt_labels{p}], ...
            'Interpreter', 'latex', 'FontSize', 12);
     legend('Ideal $F/\dot{m}_0$', 'Real $F/\dot{m}_0$', 'Ideal TSFC', 'Real TSFC', ...
            'Interpreter', 'latex', 'Location', 'eastoutside');
     set(gca, 'TickLabelInterpreter', 'latex'); grid on;
+    ax=gca;
+    ax.YAxis(1).Color='k'; % Left Y axis
+    ax.YAxis(2).Color='k'; % Right Y axis
 
     subplot(2,1,2);
     plot(sweep, ideal.opt_sweep(p).eta_T,    'b-',  'LineWidth', 1.5); hold on;
@@ -145,7 +155,7 @@ for p = 1:2
     plot(sweep, real_eng.opt_sweep(p).eta_O, 'g--', 'LineWidth', 1.5);
     ylabel('Efficiency', 'Interpreter', 'latex', 'FontSize', 12);
     xlabel(opt_labels{p}, 'Interpreter', 'latex', 'FontSize', 12);
-    title(['Optimal Config: Efficiencies vs ' opt_labels{p}], ...
+    title(['a1851552 - Optimal Config: Efficiencies vs ' opt_labels{p}], ...
            'Interpreter', 'latex', 'FontSize', 12);
     legend('Ideal $\eta_T$', 'Real $\eta_T$', 'Ideal $\eta_P$', 'Real $\eta_P$', ...
            'Ideal $\eta_O$', 'Real $\eta_O$', 'Interpreter', 'latex', 'Location', 'eastoutside');

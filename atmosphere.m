@@ -1,3 +1,7 @@
+%% Aerospace Propulsion 2026 
+% Group 13
+% Zach Al-Farabi - a1851552
+
 function [T0, P0, rho0, a0] = atmosphere(h, day_type, db_path)
 
 % Ensure function can take valid inputs

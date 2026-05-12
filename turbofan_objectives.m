@@ -1,3 +1,7 @@
+%% Aerospace Propulsion 2026 
+% Group 13
+% Zach Al-Farabi - a1851552
+
 function obj = turbofan_objectives(x, gamma, cp, atm_path)
 
     % Unpack design variables
