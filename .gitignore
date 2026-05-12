@@ -1,0 +1,12 @@
+# MATLAB
+*.asv
+*.m~
+*.mex*
+*.mat
+
+# Generated databases
+atmosphere_rw.db
+results.db
+
+# macOS
+.DS_Store
