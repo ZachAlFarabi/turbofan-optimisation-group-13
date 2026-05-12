@@ -168,23 +168,15 @@ if ~exist(desktop_path, 'dir')
     mkdir(desktop_path);
 end
 
-fig_handles = findall(0, 'Type', 'figure');
-fig_handles = sort(fig_handles);  % sort by figure number
-
-for i = 1:length(fig_handles)
-    fig = fig_handles(i);
-    fig_num = fig.Number;
-
-    % Resize figure to a clean A4-ish size
+for fig_num = 1:9
+    fig = figure(fig_num);
     set(fig, 'Units', 'centimeters', 'Position', [0 0 24 18]);
-
-    % Save as PDF sized to the figure
     exportgraphics(fig, fullfile(desktop_path, sprintf('figure_%02d.pdf', fig_num)), ...
         'ContentType', 'vector', ...
         'BackgroundColor', 'white');
-
     fprintf('Saved figure %d\n', fig_num);
 end
+
 fprintf('All figures saved to: %s\n', desktop_path);
 
 % Save tables to CSV
