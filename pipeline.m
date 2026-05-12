@@ -161,3 +161,64 @@ for p = 1:2
            'Ideal $\eta_O$', 'Real $\eta_O$', 'Interpreter', 'latex', 'Location', 'eastoutside');
     set(gca, 'TickLabelInterpreter', 'latex'); grid on;
 end
+
+% Save all figures into Desktop
+desktop_path = fullfile(getenv('HOME'), 'Desktop', 'turbofan_figures');
+if ~exist(desktop_path, 'dir')
+    mkdir(desktop_path);
+end
+
+fig_handles = findall(0, 'Type', 'figure');
+fig_handles = sort(fig_handles);  % sort by figure number
+
+for i = 1:length(fig_handles)
+    fig = fig_handles(i);
+    fig_num = fig.Number;
+
+    % Resize figure to a clean A4-ish size
+    set(fig, 'Units', 'centimeters', 'Position', [0 0 24 18]);
+
+    % Save as PDF sized to the figure
+    exportgraphics(fig, fullfile(desktop_path, sprintf('figure_%02d.pdf', fig_num)), ...
+        'ContentType', 'vector', ...
+        'BackgroundColor', 'white');
+
+    fprintf('Saved figure %d\n', fig_num);
+end
+fprintf('All figures saved to: %s\n', desktop_path);
+
+% Save tables to CSV
+
+% Ideal configurations table
+ideal_configs = table(objective, configs_i(:,1), configs_i(:,2), configs_i(:,3), configs_i(:,4), ...
+    configs_i(:,5), configs_i(:,6), configs_i(:,7), ...
+    perfs_i(:,1), perfs_i(:,2), perfs_i(:,3), perfs_i(:,4), perfs_i(:,5), ...
+    'VariableNames', {'Objective','M0','alt_m','Tt4_K','hPR_Jkg','alpha','pi_c','pi_f', ...
+    'F_m0','TSFC','eta_T','eta_P','eta_O'});
+writetable(ideal_configs, fullfile(desktop_path, 'ideal_optimal_configs.csv'));
+
+% Real configurations table
+real_configs = table(objective, configs_r(:,1), configs_r(:,2), configs_r(:,3), configs_r(:,4), ...
+    configs_r(:,5), configs_r(:,6), configs_r(:,7), ...
+    perfs_r(:,1), perfs_r(:,2), perfs_r(:,3), perfs_r(:,4), perfs_r(:,5), ...
+    'VariableNames', {'Objective','M0','alt_m','Tt4_K','hPR_Jkg','alpha','pi_c','pi_f', ...
+    'F_m0','TSFC','eta_T','eta_P','eta_O'});
+writetable(real_configs, fullfile(desktop_path, 'real_optimal_configs.csv'));
+
+% Ideal Pareto front
+ideal_pareto = table(ideal.x_front(:,1), ideal.x_front(:,2), ideal.x_front(:,3), ...
+    ideal.x_front(:,4), ideal.x_front(:,5), ideal.x_front(:,6), ideal.x_front(:,7), ...
+    ideal.F, ideal.TSFC, ideal.eta_T, ideal.eta_P, ideal.eta_O, ...
+    'VariableNames', {'M0','alt_m','Tt4_K','hPR_Jkg','alpha','pi_c','pi_f', ...
+    'F_m0','TSFC','eta_T','eta_P','eta_O'});
+writetable(ideal_pareto, fullfile(desktop_path, 'ideal_pareto_front.csv'));
+
+% Real Pareto front
+real_pareto = table(real_eng.x_front(:,1), real_eng.x_front(:,2), real_eng.x_front(:,3), ...
+    real_eng.x_front(:,4), real_eng.x_front(:,5), real_eng.x_front(:,6), real_eng.x_front(:,7), ...
+    real_eng.F, real_eng.TSFC, real_eng.eta_T, real_eng.eta_P, real_eng.eta_O, ...
+    'VariableNames', {'M0','alt_m','Tt4_K','hPR_Jkg','alpha','pi_c','pi_f', ...
+    'F_m0','TSFC','eta_T','eta_P','eta_O'});
+writetable(real_pareto, fullfile(desktop_path, 'real_pareto_front.csv'));
+
+fprintf('All CSVs saved to: %s\n', desktop_path);
