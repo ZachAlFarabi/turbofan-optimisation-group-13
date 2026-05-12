@@ -117,10 +117,10 @@ delta_tbl = tbl(:,2);
 
 % Switch case for theta in different day types
 switch day_type
-    case 'standard', theta_col = 'theta_std';
-    case 'cold', theta_col = 'theta_cold';
-    case 'hot', theta_col = 'theta_hot';
-    case 'tropical', theta_col = 'theta_trop';
+    case 'standard', theta_tbl = tbl(:,3);
+    case 'cold', theta_tbl = tbl(:,4);
+    case 'hot', theta_tbl = tbl(:,5);
+    case 'tropical', theta_tbl = tbl(:,6);
 end
 
 % Interpolate linearly within database for theta and delta
