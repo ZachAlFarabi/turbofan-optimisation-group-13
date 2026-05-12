@@ -71,11 +71,11 @@ function obj = real_turbofan_objectives(x, gamma_c, gamma_t, cp_c, cp_t, atm_pat
     end
 
     % Specific thrust and TSFC
-    F_m0 = (a0/g) * (1/(1+alpha)) * ((1+f)*V9_a0 + alpha*V19_a0 - (1+alpha)*M0);
+    F_m0 = (a0/(1+alpha)) * ((1+f)*V9_a0 + alpha*V19_a0 - (1+alpha)*M0);
     S = f / ((1+alpha) * F_m0);
 
     % Thermal, propulsive and overall efficiency
-    eta_T = a0^2 * ((1+f)*V9_a0^2 + alpha*V19_a0^2 - (1+alpha)*M0^2) / (2*g*f*hPR);
+    eta_T = a0^2 * ((1+f)*V9_a0^2 + alpha*V19_a0^2 - (1+alpha)*M0^2) / (2*f*hPR);
     eta_P = (2*M0 * ((1+f)*V9_a0 + alpha*V19_a0 - (1+alpha)*M0)) / ...
             ((1+f)*V9_a0^2 + alpha*V19_a0^2 - (1+alpha)*M0^2);
     eta_O = eta_T * eta_P;

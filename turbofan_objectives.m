@@ -44,7 +44,7 @@ function obj = turbofan_objectives(x, gamma, cp, atm_path)
 
     % Thermal, propulsive and overall efficiency
     eta_T = 1 - 1/(tau_r*tau_c);
-    eta_P = 2*(V9_V0 - 1 + alpha*(V19_V0 - 1)) / (V9_V0^2 - 1 + alpha*(V19_V0^2 - 1));
+    eta_P = (2*M0 * ((1+f)*V9_a0 + alpha*V19_a0 - (1+alpha)*M0)) / ((1+f)*V9_a0^2 + alpha*V19_a0^2 - (1+alpha)*M0^2);
     eta_O = eta_T * eta_P;
 
     if ~isfinite(F_m0) || F_m0 <= 0 || ~isfinite(S) || S <= 0
