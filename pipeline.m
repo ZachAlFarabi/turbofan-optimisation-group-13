@@ -12,8 +12,6 @@ cp_c = 1004;
 gamma_t = 1.33;  
 cp_t = 1156;
 
-copyfile('atmosphere.db', 'atmosphere_rw.db');
-atm_path = fullfile('atmosphere_rw.db');
 
 % Shared sweep definitions
 param_labels = {'$M_0$','$h$ [m]','$T_{t4}$ [K]','$h_{PR}$ [J/kg]', ...

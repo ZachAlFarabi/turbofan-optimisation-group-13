@@ -2,14 +2,14 @@
 % Group 13
 % Zach Al-Farabi - a1851552
 
-function obj = turbofan_objectives(x, gamma, cp, atm_path)
+function obj = turbofan_objectives(x, gamma, cp)
 
     % Unpack design variables
     M0 = x(1); alt = x(2); Tt4 = x(3); hPR = x(4);
     alpha = x(5); pi_c = x(6); pi_f = x(7);
 
     % Find T0 using atmosphere table
-    [T0, ~, ~, a0] = atmosphere(alt, 'standard', atm_path);
+    [T0, ~, ~, a0] = atmosphere(alt, 'standard');
 
     % Temperature ratios
     tau_r = 1 + ((gamma-1)/2) * M0^2;

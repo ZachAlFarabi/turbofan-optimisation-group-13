@@ -2,14 +2,14 @@
 % Group 13
 % Zach Al-Farabi - a1851552
 
-function obj = real_turbofan_objectives(x, gamma_c, gamma_t, cp_c, cp_t, atm_path)
+function obj = real_turbofan_objectives(x, gamma_c, gamma_t, cp_c, cp_t)
     
     % Unpack design variables
     M0 = x(1); alt = x(2); Tt4 = x(3); hPR = x(4);
     alpha = x(5); pi_c = x(6); pi_f = x(7);
 
     % Find T0 using atmosphere table
-    [T0, ~, ~, ~] = atmosphere(alt, 'standard', atm_path);
+    [T0, ~, ~, ~] = atmosphere(alt, 'standard');
 
     % Define component performance technology level 4
     pi_d = 0.96; 

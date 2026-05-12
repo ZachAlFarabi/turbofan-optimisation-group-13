@@ -13,7 +13,7 @@ ub = [0.9, 12000, 1800, 50e6, 5.0, 40, 5.0];
 x0_mid = [0.8, 7000, 1800, 45e6, 1.0, 10, 1.5];
 opts = optimoptions('fmincon', 'Display', 'off', 'Algorithm', 'sqp');
 
-r_test = real_turbofan_objectives(x0_mid, gamma_c, gamma_t, cp_c, cp_t, atm_path);
+r_test = real_turbofan_objectives(x0_mid, gamma_c, gamma_t, cp_c, cp_t);
 fprintf('[Real] Feasibility check: F_m0=%.4f  TSFC=%.8f\n', -r_test(1), r_test(2));
 
 % Number Pareto points, design variable matrix and objective value matrix
@@ -36,7 +36,7 @@ for i = 1:n_pareto
     w = W(i,:);
 
     % Function combining objective values into a number using weights and scale
-    obj_fn = @(x) sum(w .* real_turbofan_objectives(x, gamma_c, gamma_t, cp_c, cp_t, atm_path) .* scale);
+    obj_fn = @(x) sum(w .* real_turbofan_objectives(x, gamma_c, gamma_t, cp_c, cp_t) .* scale);
 
     % Minimise function subject to lb < x < ub
     [x_opt, ~, flag] = fmincon(obj_fn, x0_mid, [], [], [], [], lb, ub, [], opts);
@@ -45,7 +45,7 @@ for i = 1:n_pareto
     if flag > 0
 
         % Compute the actual objective values at this minimised value
-        f_test = real_turbofan_objectives(x_opt, gamma_c, gamma_t, cp_c, cp_t, atm_path);
+        f_test = real_turbofan_objectives(x_opt, gamma_c, gamma_t, cp_c, cp_t);
 
         % If objectives are feasible
         if f_test(1) < 0 && f_test(2) > 0 && f_test(2) < 1
@@ -140,7 +140,7 @@ for p = 1:7
         x_sw = real_eng.x_nom; x_sw(p) = sweep(i);
 
         % Compute the actual objective values
-        r = real_turbofan_objectives(x_sw, gamma_c, gamma_t, cp_c, cp_t, atm_path);
+        r = real_turbofan_objectives(x_sw, gamma_c, gamma_t, cp_c, cp_t);
 
          % If objectives are feasible
         if all(isfinite(r)) && r(1) < 0 && r(2) > 0 && r(2) < 1
@@ -175,7 +175,7 @@ for p = 1:2
         x_sw = real_eng.x_nom; x_sw(opt_idx(p)) = sweep(i);
 
         % Compute the actual objective values
-        r = real_turbofan_objectives(x_sw, gamma_c, gamma_t, cp_c, cp_t, atm_path);
+        r = real_turbofan_objectives(x_sw, gamma_c, gamma_t, cp_c, cp_t);
 
          % If objectives are feasible
         if all(isfinite(r)) && r(1) < 0 && r(2) > 0 && r(2) < 1
@@ -192,4 +192,4 @@ for p = 1:2
     real_eng.opt_sweep(p).eta_O = etaO_sw;
 end
 
-clearvars -except ideal real_eng gamma gamma_c gamma_t cp cp_c cp_t atm_path param_ranges param_labels opt_sweeps opt_labels opt_idx
+clearvars -except ideal real_eng gamma gamma_c gamma_t cp cp_c cp_t  param_ranges param_labels opt_sweeps opt_labels opt_idx

@@ -33,7 +33,7 @@ for i = 1:n_pareto
     w = W(i,:);
 
     % Function combining objective values into a number using weights and scale
-    obj_fn = @(x) sum(w .* turbofan_objectives(x, gamma, cp, atm_path) .* scale);
+    obj_fn = @(x) sum(w .* turbofan_objectives(x, gamma, cp) .* scale);
 
     % Minimise function subject to lb < x < ub
     [x_opt, ~, flag] = fmincon(obj_fn, x0_mid, [], [], [], [], lb, ub, [], opts);
@@ -42,7 +42,7 @@ for i = 1:n_pareto
     if flag > 0
 
         % Compute the actual objective values at this minimised value
-        f_test = turbofan_objectives(x_opt, gamma, cp, atm_path);
+        f_test = turbofan_objectives(x_opt, gamma, cp);
 
         % If objectives are feasible
         if f_test(1) < 0 && f_test(2) > 0 && f_test(2) < 1
@@ -136,7 +136,7 @@ for p = 1:7
         x_sw = ideal.x_nom; x_sw(p) = sweep(i);
 
         % Compute the actual objective values
-        r = turbofan_objectives(x_sw, gamma, cp, atm_path);
+        r = turbofan_objectives(x_sw, gamma, cp);
 
         % If objectives are feasible
         if all(isfinite(r)) && r(1) < 0 && r(2) > 0 && r(2) < 1
@@ -171,7 +171,7 @@ for p = 1:2
         x_sw = ideal.x_nom; x_sw(opt_idx(p)) = sweep(i);
 
         % Compute the actual objective values
-        r = turbofan_objectives(x_sw, gamma, cp, atm_path);
+        r = turbofan_objectives(x_sw, gamma, cp);
 
         % If objectives are feasible
         if all(isfinite(r)) && r(1) < 0 && r(2) > 0 && r(2) < 1
@@ -188,4 +188,4 @@ for p = 1:2
     ideal.opt_sweep(p).eta_O = etaO_sw;
 end
 
-clearvars -except ideal real_eng gamma gamma_c gamma_t cp cp_c cp_t atm_path param_ranges param_labels opt_sweeps opt_labels opt_idx
+clearvars -except ideal real_eng gamma gamma_c gamma_t cp cp_c cp_t  param_ranges param_labels opt_sweeps opt_labels opt_idx
